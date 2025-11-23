@@ -6,8 +6,26 @@
   <title>IV Festival de Profissões • FACISA</title>
   <meta name="theme-color" content="#0044cc">
 
-  <!-- META PIXEL CODE -->
+  <!-- META PIXEL CODE + CONTROLE POR LOCALSTORAGE -->
   <script>
+    // Config de bloqueio de eventos para leads já cadastrados (30 dias)
+    const LEAD_STORAGE_KEY = 'facisaFestivalLeadTs';
+    const LEAD_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 dias em ms
+
+    function canTrackPixelEvent() {
+      try {
+        const ts = localStorage.getItem(LEAD_STORAGE_KEY);
+        if (!ts) return true; // nunca virou lead ainda
+        const diff = Date.now() - parseInt(ts, 10);
+        if (isNaN(diff)) return true;
+        // só permite novo evento se passou de 30 dias
+        return diff > LEAD_TTL_MS;
+      } catch (e) {
+        // se der qualquer erro com localStorage, deixa rastrear normal
+        return true;
+      }
+    }
+
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -16,8 +34,13 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+
     fbq('init', '731985879919035');
-    fbq('track', 'PageView');
+
+    // PageView só dispara se ainda pode rastrear (não é lead recente)
+    if (canTrackPixelEvent()) {
+      fbq('track', 'PageView');
+    }
   </script>
 
   <noscript>
@@ -54,7 +77,12 @@
       text-transform:uppercase;
     }
     header h1 span{color:#fff94d;}
-    header p{font-size:1rem;margin-top:10px;font-weight:500;}
+    header p{
+      font-size:1rem;
+      margin-top:10px;
+      font-weight:500;
+      letter-spacing:.4px;
+    }
 
     .info-box{
       background:var(--branco);
@@ -91,14 +119,48 @@
       overflow:hidden;
       box-shadow:var(--shadow);
     }
-
+    /* Desktop: imagem menor */
     @media (min-width: 992px){
-      .banner{max-width:650px;}
+      .banner{
+        max-width:650px;
+      }
     }
 
-    .cta{text-align:center;padding:30px 16px 60px;}
-    .cta h2{font-size:1.6rem;color:var(--azul);font-weight:900;margin-bottom:8px;}
+    .cta{
+      text-align:center;
+      padding:30px 16px 60px;
+    }
+    .cta h2{
+      font-size:1.6rem;
+      color:var(--azul);
+      font-weight:900;
+      margin-bottom:8px;
+    }
     .cta p{color:var(--texto);margin-bottom:16px;}
+
+    .cta-form{
+      max-width:520px;
+      margin:0 auto 18px;
+      text-align:left;
+    }
+    .cta-form .field{
+      margin-bottom:12px;
+    }
+    .cta-form label{
+      font-size:14px;
+      font-weight:600;
+      color:var(--texto);
+      display:block;
+      margin-bottom:4px;
+    }
+    .cta-form input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #d1d5db;
+      font-size:14px;
+    }
+
     .cta a.btn{
       background:var(--laranja);
       color:#fff;
@@ -145,11 +207,13 @@
 </head>
 <body>
 
+  <!-- TOPO -->
   <header>
     <h1>IV Festival de Profissões<br><span>da FACISA</span></h1>
     <p>Descubra o futuro que há em você 🚀</p>
   </header>
 
+  <!-- INFO -->
   <section class="info-box">
     <div class="info-grid">
       <div class="info-item">📅 02 de Dezembro</div>
@@ -160,39 +224,252 @@
     <p style="font-size:14px;color:var(--texto);margin-top:6px">Participe e concorra a bolsas exclusivas!</p>
   </section>
 
+  <!-- IMAGEM PRINCIPAL -->
   <div class="banner">
     <img src="./feira.png" alt="IV Festival de Profissões da FACISA">
   </div>
 
+  <!-- CTA -->
   <section class="cta">
     <h2>Garanta sua inscrição agora!</h2>
-    <p>Escaneie o QR Code da imagem ou clique abaixo para garantir sua inscrição.</p>
+    <p>Preencha seus dados e clique abaixo para ser redirecionado ao formulário oficial de inscrição.</p>
 
-    <!-- BOTÃO QUE DISPARA LEAD -->
+    <!-- CAMPOS OBRIGATÓRIOS -->
+    <div class="cta-form">
+      <div class="field">
+        <label for="leadName">Nome Completo *</label>
+        <input type="text" id="leadName" placeholder="Seu nome" required>
+      </div>
+      <div class="field">
+        <label for="leadPhone">Telefone *</label>
+        <input type="tel" id="leadPhone" placeholder="(00) 00000-0000" required>
+      </div>
+      <div class="field">
+        <label for="leadEmail">E-mail *</label>
+        <input type="email" id="leadEmail" placeholder="seuemail@exemplo.com" required>
+      </div>
+    </div>
+
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform"
        target="_blank"
-       class="btn"
-       onclick="fbq('track', 'Lead');">
+       id="ctaButton"
+       class="btn">
       💬 INSCRIÇÕES ABERTAS
     </a>
   </section>
 
+  <!-- RODAPÉ -->
   <footer>
     <strong>FACISA • Itamaraju — Bahia</strong><br>
     © 2025 Faculdade FACISA. Todos os direitos reservados.
   </footer>
 
-  <!-- BOTÃO WHATSAPP COM EVENTO DE LEAD -->
-  <a href="https://wa.me/557398029916?text=Olá!%20Quero%20participar%20do%20Festival%20de%20Profissões%20da%20FACISA!"
-     class="whatsapp-float"
-     target="_blank"
-     onclick="fbq('track', 'Lead');"
-     aria-label="Fale conosco no WhatsApp">
+  <!-- BOTÃO FIXO WHATSAPP -->
+  <a href="https://wa.me/557398029916?text=Olá!%20Quero%20participar%20do%20Festival%20de%20Profissões%20da%20FACISA!" 
+     class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
 
-  <!-- POPUP + SCRIPTS (inalterado) -->
-  … (mantive todo o popup exatamente igual)
-  
+  <!-- POPUP INFORMATIVO DO SORTEIO -->
+  <div id="popupOverlay" class="popup-overlay" aria-hidden="true">
+    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <h3 id="popupTitle">⚠️ Atenção ao regulamento do sorteio</h3>
+      <ul class="popup-list">
+        <li>O sorteio é permitido apenas para quem ainda <strong>não é aluno da FACISA</strong>;</li>
+        <li>Só será computado o <strong>primeiro cadastro</strong>, ou seja, não é permitido se inscrever em mais de um curso;</li>
+        <li>É <strong>obrigatório estar presente</strong> no dia do sorteio com documento em mãos.</li>
+      </ul>
+      <button id="acceptPopup" class="popup-btn">Entendi</button>
+    </div>
+  </div>
+
+  <style>
+  .popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(16,17,20,.45);
+    display:grid;
+    place-items:center;
+    z-index:9999;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  .popup-overlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .popup-box{
+    background:var(--white,#fff);
+    color:var(--text,#101114);
+    width:min(90vw,520px);
+    border-radius:var(--radius,18px);
+    box-shadow:0 16px 48px rgba(0,0,0,.25);
+    padding:24px 22px 20px;
+    transform:translateY(20px);
+    transition:transform .35s ease;
+  }
+  .popup-overlay.show .popup-box{transform:translateY(0);}
+
+  .popup-box h3{
+    margin:0 0 10px;
+    color:var(--red,#e30613);
+    font-size:1.2rem;
+    font-weight:900;
+    text-align:center;
+  }
+
+  .popup-list{
+    font-size:14px;
+    color:var(--text,#101114);
+    margin:0 0 16px;
+    padding-left:18px;
+    line-height:1.5;
+  }
+  .popup-list li{margin-bottom:6px;}
+
+  .popup-btn{
+    background:var(--red,#e30613);
+    color:#fff;
+    border:0;
+    border-radius:12px;
+    padding:10px 18px;
+    font-weight:800;
+    display:block;
+    margin:0 auto;
+    cursor:pointer;
+    transition:background .3s, transform .1s;
+  }
+  .popup-btn:hover{background:var(--red-dark,#b1000d);}
+  .popup-btn:active{transform:translateY(1px);}
+  </style>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function(){
+
+    /* --- POPUP DO REGULAMENTO --- */
+    const overlay = document.getElementById("popupOverlay");
+    const btnPopup = document.getElementById("acceptPopup");
+
+    if(!localStorage.getItem("popupAcceptedFestivalProfissoes")){
+      setTimeout(()=>{
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden","false");
+        btnPopup.focus({preventScroll:true});
+      }, 800);
+    }
+
+    function closePopup(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+      localStorage.setItem("popupAcceptedFestivalProfissoes","true");
+    }
+
+    btnPopup.addEventListener("click", closePopup);
+
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape" && overlay.classList.contains("show")){
+        closePopup();
+      }
+    });
+
+    overlay.addEventListener("click", (e)=>{
+      if(e.target === overlay){
+        closePopup();
+      }
+    });
+
+    /* --- MÁSCARA DE TELEFONE --- */
+    function maskPhone(value) {
+      value = value.replace(/\D/g, "");
+      if (value.length > 11) value = value.slice(0, 11);
+
+      if (value.length <= 10) {
+        return value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+      }
+      return value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+    }
+
+    const phoneInput = document.getElementById("leadPhone");
+    if (phoneInput) {
+      phoneInput.addEventListener("input", function(e){
+        e.target.value = maskPhone(e.target.value);
+      });
+    }
+
+    /* --- EVENTO DE LEAD NO CLIQUE DO BOTÃO --- */
+const ctaButton = document.getElementById("ctaButton");
+
+ctaButton.addEventListener("click", function(e){
+  const name  = document.getElementById("leadName").value.trim();
+  const phone = document.getElementById("leadPhone").value.trim();
+  const email = document.getElementById("leadEmail").value.trim();
+
+  if(!name || !phone || !email){
+    e.preventDefault();
+    alert("Por favor, preencha nome, telefone e e-mail antes de continuar.");
+    return;
+  }
+
+  // Caso a pessoa já tenha enviado lead nos últimos 30 dias:
+  if (!canTrackPixelEvent()) {
+    e.preventDefault();
+
+    // Aviso elegante no centro da tela
+    const msg = document.createElement("div");
+    msg.style.position = "fixed";
+    msg.style.top = "50%";
+    msg.style.left = "50%";
+    msg.style.transform = "translate(-50%, -50%)";
+    msg.style.background = "#ffffff";
+    msg.style.borderRadius = "16px";
+    msg.style.padding = "24px 28px";
+    msg.style.boxShadow = "0 8px 28px rgba(0,0,0,0.25)";
+    msg.style.fontSize = "16px";
+    msg.style.fontWeight = "600";
+    msg.style.color = "#0f172a";
+    msg.style.zIndex = "99999";
+    msg.style.textAlign = "center";
+    msg.innerHTML = `
+      Você já realizou seu pré-cadastro recentemente.<br>
+      <span style="font-size:14px;color:#444">Vamos te redirecionar para o formulário.</span>
+    `;
+
+    document.body.appendChild(msg);
+
+    // redireciona depois de 1 segundo
+    setTimeout(() => {
+      msg.remove();
+      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform";
+    }, 1000);
+
+    return; // impede disparo de novo Lead
+  }
+
+  // Disparo do Lead (primeira vez)
+  if (typeof fbq === "function") {
+    fbq('track', 'Lead', {
+      fn: name,
+      ph: phone,
+      em: email
+    });
+  }
+
+  // Salva o timestamp para bloquear novos leads por 30 dias
+  try {
+    localStorage.setItem(LEAD_STORAGE_KEY, Date.now().toString());
+  } catch (e) {}
+
+  // deixa seguir normalmente após 700ms
+  setTimeout(() => {
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform";
+  }, 700);
+});
+
+
+  });
+  </script>
+
 </body>
 </html>
