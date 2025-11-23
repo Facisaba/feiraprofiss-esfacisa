@@ -440,9 +440,10 @@ ctaButton.addEventListener("click", function(e){
 
     // redireciona depois de 1 segundo
     setTimeout(() => {
-      msg.remove();
-      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform";
-    }, 1000);
+  msg.remove();
+  window.open("https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform", "_blank");
+}, 1000);
+
 
     return; // impede disparo de novo Lead
   }
@@ -461,10 +462,7 @@ ctaButton.addEventListener("click", function(e){
     localStorage.setItem(LEAD_STORAGE_KEY, Date.now().toString());
   } catch (e) {}
 
-  // deixa seguir normalmente após 700ms
-  setTimeout(() => {
-    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform";
-  }, 700);
+ 
 });
 
 
