@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IV Festival de Profissões • FACISA</title>
+  <meta name="theme-color" content="#0044cc">
+  <style>
+    :root{
+      --azul:#0044cc;
+      --azul-claro:#e6f2ff;
+      --laranja:#ff7a00;
+      --branco:#fff;
+      --texto:#0f172a;
+      --radius:18px;
+      --shadow:0 8px 28px rgba(16,17,20,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Roboto,system-ui,sans-serif;}
+    body{background:var(--azul-claro);color:var(--texto);overflow-x:hidden;}
+    img{max-width:100%;height:auto;display:block;}
+
+    header{
+      background:linear-gradient(135deg,var(--azul),#0058ff);
+      color:var(--branco);
+      text-align:center;
+      padding:40px 16px 60px;
+      position:relative;
+    }
+    header h1{
+      font-size:clamp(1.8rem,5vw,2.6rem);
+      font-weight:900;
+      line-height:1.2;
+      text-transform:uppercase;
+    }
+    header h1 span{color:#fff94d;}
+    header p{
+      font-size:1rem;
+      margin-top:10px;
+      font-weight:500;
+      letter-spacing:.4px;
+    }
+
+    .info-box{
+      background:var(--branco);
+      max-width:700px;
+      margin:-40px auto 0;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px 20px;
+      text-align:center;
+    }
+    .info-grid{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-top:12px;
+    }
+    .info-item{
+      background:var(--azul-claro);
+      padding:12px 20px;
+      border-radius:12px;
+      font-weight:700;
+      color:var(--azul);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:15px;
+    }
+
+    .banner{
+      margin:40px auto 20px;
+      max-width:900px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .cta{
+      text-align:center;
+      padding:30px 16px 60px;
+    }
+    .cta h2{
+      font-size:1.6rem;
+      color:var(--azul);
+      font-weight:900;
+      margin-bottom:8px;
+    }
+    .cta p{color:var(--texto);margin-bottom:16px;}
+    .cta a.btn{
+      background:var(--laranja);
+      color:#fff;
+      text-decoration:none;
+      padding:14px 28px;
+      border-radius:14px;
+      font-weight:800;
+      box-shadow:0 8px 18px rgba(255,122,0,.35);
+      transition:transform .1s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .cta a.btn:active{transform:translateY(1px);}
+
+    footer{
+      background:var(--azul);
+      color:#fff;
+      text-align:center;
+      padding:24px 16px;
+      border-top-left-radius:18px;
+      border-top-right-radius:18px;
+      font-size:14px;
+    }
+
+    /* BOTÃO WHATSAPP FIXO */
+    .whatsapp-float{
+      position:fixed;
+      bottom:18px;
+      right:18px;
+      background:#25D366;
+      color:#fff;
+      border-radius:50%;
+      width:60px;
+      height:60px;
+      display:grid;
+      place-items:center;
+      box-shadow:0 6px 20px rgba(0,0,0,.25);
+      z-index:999;
+      transition:transform .2s ease;
+    }
+    .whatsapp-float:hover{transform:scale(1.05);}
+    .whatsapp-float img{width:34px;height:34px;}
+  </style>
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header>
+    <h1>IV Festival de Profissões<br><span>da FACISA</span></h1>
+    <p>Descubra o futuro que há em você 🚀</p>
+  </header>
+
+  <!-- INFO -->
+  <section class="info-box">
+    <div class="info-grid">
+      <div class="info-item">📅 02 de Dezembro</div>
+      <div class="info-item">⏰ 19h00</div>
+      <div class="info-item">📍 Pátio da FACISA</div>
+    </div>
+    <h3 style="margin-top:20px;font-size:1.2rem;font-weight:900;color:var(--laranja)">Sorteio de bolsas de até 100%</h3>
+    <p style="font-size:14px;color:var(--texto);margin-top:6px">Participe e concorra a bolsas exclusivas!</p>
+  </section>
+
+  <!-- IMAGEM PRINCIPAL -->
+  <div class="banner">
+    <img src="./feira.png" alt="IV Festival de Profissões da FACISA">
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Garanta sua inscrição agora!</h2>
+    <p>Escaneie o QR Code da imagem ou clique abaixo para garantir sua inscrição.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSelFmwU6m9e5ySY6tNvOYGRLXLjU6hrc1lfVIUV9MFYWIG_Cg/viewform" target="_blank" class="btn">
+      💬 INSCRIÇÕES ABERTAS
+    </a>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <strong>FACISA • Itamaraju — Bahia</strong><br>
+    © 2025 Faculdade FACISA. Todos os direitos reservados.
+  </footer>
+
+  <!-- BOTÃO FIXO WHATSAPP -->
+  <a href="https://wa.me/557398029919?text=Olá!%20Quero%20participar%20do%20Festival%20de%20Profissões%20da%20FACISA!" 
+     class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+
+<!-- POPUP INFORMATIVO DO SORTEIO -->
+<div id="popupOverlay" class="popup-overlay" aria-hidden="true">
+  <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <h3 id="popupTitle">⚠️ Atenção ao regulamento do sorteio</h3>
+    <ul class="popup-list">
+      <li>O sorteio é permitido apenas para quem ainda <strong>não é aluno da FACISA</strong>;</li>
+      <li>Só será computado o <strong>primeiro cadastro</strong>, ou seja, não é permitido se inscrever em mais de um curso;</li>
+      <li>É <strong>obrigatório estar presente</strong> no dia do sorteio com documento em mãos.</li>
+    </ul>
+    <button id="acceptPopup" class="popup-btn">Entendi</button>
+  </div>
+</div>
+
+<style>
+/* Fundo escurecido */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(16,17,20,.45);
+  display:grid;
+  place-items:center;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease;
+}
+.popup-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Caixa do popup */
+.popup-box{
+  background:var(--white,#fff);
+  color:var(--text,#101114);
+  width:min(90vw,520px);
+  border-radius:var(--radius,18px);
+  box-shadow:0 16px 48px rgba(0,0,0,.25);
+  padding:24px 22px 20px;
+  transform:translateY(20px);
+  transition:transform .35s ease;
+}
+.popup-overlay.show .popup-box{transform:translateY(0);}
+
+.popup-box h3{
+  margin:0 0 10px;
+  color:var(--red,#e30613);
+  font-size:1.2rem;
+  font-weight:900;
+  text-align:center;
+}
+
+.popup-list{
+  font-size:14px;
+  color:var(--text,#101114);
+  margin:0 0 16px;
+  padding-left:18px;
+  line-height:1.5;
+}
+.popup-list li{margin-bottom:6px;}
+
+.popup-btn{
+  background:var(--red,#e30613);
+  color:#fff;
+  border:0;
+  border-radius:12px;
+  padding:10px 18px;
+  font-weight:800;
+  display:block;
+  margin:0 auto;
+  cursor:pointer;
+  transition:background .3s, transform .1s;
+}
+.popup-btn:hover{background:var(--red-dark,#b1000d);}
+.popup-btn:active{transform:translateY(1px);}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+  const overlay = document.getElementById("popupOverlay");
+  const btn = document.getElementById("acceptPopup");
+
+  // Mostrar popup apenas se ainda não aceitou
+  if(!localStorage.getItem("popupAccepted")){
+    setTimeout(()=>{
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden","false");
+      btn.focus({preventScroll:true});
+    }, 800);
+  }
+
+  // Botão "Entendi"
+  btn.addEventListener("click", ()=>{
+    overlay.classList.remove("show");
+    overlay.setAttribute("aria-hidden","true");
+    localStorage.setItem("popupAccepted","true");
+  });
+
+  // Pressionar ESC também fecha
+  window.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && overlay.classList.contains("show")){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+      localStorage.setItem("popupAccepted","true");
+    }
+  });
+
+  // Clique fora do card também fecha
+  overlay.addEventListener("click", (e)=>{
+    if(e.target === overlay){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+      localStorage.setItem("popupAccepted","true");
+    }
+  });
+});
+</script>
+
+
+</body>
+</html>
