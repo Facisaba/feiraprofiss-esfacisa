@@ -76,6 +76,13 @@
       box-shadow:var(--shadow);
     }
 
+    /* Ajuste apenas para DESKTOP: banner menor */
+    @media (min-width: 992px){
+      .banner{
+        max-width:650px;
+      }
+    }
+
     .cta{
       text-align:center;
       padding:30px 16px 60px;
@@ -177,125 +184,123 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
 
-<!-- POPUP INFORMATIVO DO SORTEIO -->
-<div id="popupOverlay" class="popup-overlay" aria-hidden="true">
-  <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <h3 id="popupTitle">⚠️ Atenção ao regulamento do sorteio</h3>
-    <ul class="popup-list">
-      <li>O sorteio é permitido apenas para quem ainda <strong>não é aluno da FACISA</strong>;</li>
-      <li>Só será computado o <strong>primeiro cadastro</strong>, ou seja, não é permitido se inscrever em mais de um curso;</li>
-      <li>É <strong>obrigatório estar presente</strong> no dia do sorteio com documento em mãos.</li>
-    </ul>
-    <button id="acceptPopup" class="popup-btn">Entendi</button>
+  <!-- POPUP INFORMATIVO DO SORTEIO -->
+  <div id="popupOverlay" class="popup-overlay" aria-hidden="true">
+    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <h3 id="popupTitle">⚠️ Atenção ao regulamento do sorteio</h3>
+      <ul class="popup-list">
+        <li>O sorteio é permitido apenas para quem ainda <strong>não é aluno da FACISA</strong>;</li>
+        <li>Só será computado o <strong>primeiro cadastro</strong>, ou seja, não é permitido se inscrever em mais de um curso;</li>
+        <li>É <strong>obrigatório estar presente</strong> no dia do sorteio com documento em mãos.</li>
+      </ul>
+      <button id="acceptPopup" class="popup-btn">Entendi</button>
+    </div>
   </div>
-</div>
 
-<style>
-/* Fundo escurecido */
-.popup-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(16,17,20,.45);
-  display:grid;
-  place-items:center;
-  z-index:9999;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .35s ease;
-}
-.popup-overlay.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* Caixa do popup */
-.popup-box{
-  background:var(--white,#fff);
-  color:var(--text,#101114);
-  width:min(90vw,520px);
-  border-radius:var(--radius,18px);
-  box-shadow:0 16px 48px rgba(0,0,0,.25);
-  padding:24px 22px 20px;
-  transform:translateY(20px);
-  transition:transform .35s ease;
-}
-.popup-overlay.show .popup-box{transform:translateY(0);}
-
-.popup-box h3{
-  margin:0 0 10px;
-  color:var(--red,#e30613);
-  font-size:1.2rem;
-  font-weight:900;
-  text-align:center;
-}
-
-.popup-list{
-  font-size:14px;
-  color:var(--text,#101114);
-  margin:0 0 16px;
-  padding-left:18px;
-  line-height:1.5;
-}
-.popup-list li{margin-bottom:6px;}
-
-.popup-btn{
-  background:var(--red,#e30613);
-  color:#fff;
-  border:0;
-  border-radius:12px;
-  padding:10px 18px;
-  font-weight:800;
-  display:block;
-  margin:0 auto;
-  cursor:pointer;
-  transition:background .3s, transform .1s;
-}
-.popup-btn:hover{background:var(--red-dark,#b1000d);}
-.popup-btn:active{transform:translateY(1px);}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", ()=>{
-  const overlay = document.getElementById("popupOverlay");
-  const btn = document.getElementById("acceptPopup");
-
-  // Mostrar popup apenas se ainda não aceitou
-  if(!localStorage.getItem("popupAccepted")){
-    setTimeout(()=>{
-      overlay.classList.add("show");
-      overlay.setAttribute("aria-hidden","false");
-      btn.focus({preventScroll:true});
-    }, 800);
+  <style>
+  /* Fundo escurecido */
+  .popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(16,17,20,.45);
+    display:grid;
+    place-items:center;
+    z-index:9999;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  .popup-overlay.show{
+    opacity:1;
+    pointer-events:auto;
   }
 
-  // Botão "Entendi"
-  btn.addEventListener("click", ()=>{
-    overlay.classList.remove("show");
-    overlay.setAttribute("aria-hidden","true");
-    localStorage.setItem("popupAccepted","true");
-  });
+  /* Caixa do popup */
+  .popup-box{
+    background:var(--white,#fff);
+    color:var(--text,#101114);
+    width:min(90vw,520px);
+    border-radius:var(--radius,18px);
+    box-shadow:0 16px 48px rgba(0,0,0,.25);
+    padding:24px 22px 20px;
+    transform:translateY(20px);
+    transition:transform .35s ease;
+  }
+  .popup-overlay.show .popup-box{transform:translateY(0);}
 
-  // Pressionar ESC também fecha
-  window.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape" && overlay.classList.contains("show")){
+  .popup-box h3{
+    margin:0 0 10px;
+    color:var(--red,#e30613);
+    font-size:1.2rem;
+    font-weight:900;
+    text-align:center;
+  }
+
+  .popup-list{
+    font-size:14px;
+    color:var(--text,#101114);
+    margin:0 0 16px;
+    padding-left:18px;
+    line-height:1.5;
+  }
+  .popup-list li{margin-bottom:6px;}
+
+  .popup-btn{
+    background:var(--red,#e30613);
+    color:#fff;
+    border:0;
+    border-radius:12px;
+    padding:10px 18px;
+    font-weight:800;
+    display:block;
+    margin:0 auto;
+    cursor:pointer;
+    transition:background .3s, transform .1s;
+  }
+  .popup-btn:hover{background:var(--red-dark,#b1000d);}
+  .popup-btn:active{transform:translateY(1px);}
+  </style>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const overlay = document.getElementById("popupOverlay");
+    const btn = document.getElementById("acceptPopup");
+
+    // Mostrar popup apenas se ainda não aceitou
+    if(!localStorage.getItem("popupAccepted")){
+      setTimeout(()=>{
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden","false");
+        btn.focus({preventScroll:true});
+      }, 800);
+    }
+
+    // Botão "Entendi"
+    btn.addEventListener("click", ()=>{
       overlay.classList.remove("show");
       overlay.setAttribute("aria-hidden","true");
       localStorage.setItem("popupAccepted","true");
-    }
-  });
+    });
 
-  // Clique fora do card também fecha
-  overlay.addEventListener("click", (e)=>{
-    if(e.target === overlay){
-      overlay.classList.remove("show");
-      overlay.setAttribute("aria-hidden","true");
-      localStorage.setItem("popupAccepted","true");
-    }
-  });
-});
-</script>
+    // Pressionar ESC também fecha
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape" && overlay.classList.contains("show")){
+        overlay.classList.remove("show");
+        overlay.setAttribute("aria-hidden","true");
+        localStorage.setItem("popupAccepted","true");
+      }
+    });
 
+    // Clique fora do card também fecha
+    overlay.addEventListener("click", (e)=>{
+      if(e.target === overlay){
+        overlay.classList.remove("show");
+        overlay.setAttribute("aria-hidden","true");
+        localStorage.setItem("popupAccepted","true");
+      }
+    });
+  });
+  </script>
 
 </body>
 </html>
-
